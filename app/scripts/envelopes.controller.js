@@ -65,6 +65,7 @@
 
         function showCreateEnvelope() {
             vm.newEnvelope = {};
+            vm.newMeta = {};
             vm.modal.show();
         }
 
@@ -112,18 +113,23 @@
 
         function getDaysBetween(firstDate, secondDate) {
             var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-            return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)))
+            return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
         }
 
 
+        console.log('this!');
         function updateNew(meta) {
+            console.log('test');
             vm.newEnvelope.amount = meta.amount / meta.days;
             if(!meta.hasDueDate) {
                 vm.newEnvelope.total = 0;
             } else {
-                if(meta.nextDueDate) {
+                if(meta.lastDueDate) {
+                    var nextDueDate = new Date(meta.lastDueDate);
+                    nextDueDate.setDate(nextDueDate.getDate() + parseInt(vm.newMeta.days));
+                    console.log(nextDueDate, vm.newMeta.days);
                     vm.newEnvelope.total =
-                        Math.max(0, meta.amount - (vm.newEnvelope.amount * getDaysBetween(meta.nextDueDate, new Date())));
+                        Math.max(0, meta.amount - (vm.newEnvelope.amount * getDaysBetween(nextDueDate, new Date())));
                 }
             }
         }
