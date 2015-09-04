@@ -1,0 +1,70 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Title!</h1>
+        <button class="button" ng-click="vm.cancel()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="" ng-model="vm.newEnvelope.name">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Amount</span>
+                <input type="text" placeholder=""
+                       ng-model="vm.newMeta.amount"
+                       ng-change="vm.updateNew(vm.newMeta)">
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Every
+                </div>
+                <select ng-model="vm.newMeta.days"
+                        ng-change="vm.updateNew(vm.newMeta)">
+                    <option value="1">Day</option>
+                    <option value="7">Week</option>
+                    <option value="14">2 Weeks</option>
+                    <option value="28">4 Weeks</option>
+                    <option value="84">Quarter</option>
+                    <option value="84">Year</option>
+                </select>
+            </label>
+
+            <div class="item item-toggle">
+                Due Date
+                <label class="toggle toggle-positive">
+                    <input type="checkbox" ng-model="vm.newMeta.hasDueDate"
+                           ng-change="vm.updateNew(vm.newMeta)">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+
+            <label class="item item-input" ng-show="vm.newMeta.hasDueDate">
+                <span class="input-label">Next Due</span>
+                <input type="date"
+                       ng-model="vm.newMeta.nextDueDate"
+                       ng-change="vm.updateNew(vm.newMeta)">
+            </label>
+
+            <div class="item item-text-wrap">
+                <h3>
+                    ${{ vm.newEnvelope.amount | number:2 }} Daily
+                    <span ng-show="vm.newMeta.hasDueDate">
+                     + ${{ vm.newEnvelope.total | number:2 }} offset.
+                    </span>
+                </h3>
+            </div>
+            <button class="button button-full button-positive item" ng-click="vm.createEnvelope(vm.newEnvelope)">
+                Create Envelope
+            </button>
+
+            <!--<label class="item item-input item-stacked-label">-->
+            <!--<span class="input-label">Active</span>-->
+            <!--<input type="text" placeholder="" ng-model="vm.newEnvelope.active">-->
+            <!--</label>-->
+
+        </div>
+    </ion-content>
+</ion-modal-view>

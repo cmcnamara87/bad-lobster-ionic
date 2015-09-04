@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">{{ vm.newEnvelope.name }}</h1>
+        <button class="button" ng-click="vm.cancel()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="" ng-model="vm.newEnvelope.name">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Daily Amount</span>
+                <input type="text" placeholder="" ng-model="vm.newEnvelope.amount">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Active</span>
+                <input type="text" placeholder="" ng-model="vm.newEnvelope.active">
+            </label>
+            <button class="button button-full button-positive item" ng-click="vm.updateEnvelope(vm.newEnvelope)">
+                Create Envelope
+            </button>
+        </div>
+    </ion-content>
+</ion-modal-view>
