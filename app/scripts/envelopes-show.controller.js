@@ -38,6 +38,10 @@
 
         function getEnvelope(id) {
             return $http.get(ENV.apiEndpoint + 'envelopes/' + id).then(function(response) {
+                var envelope = response.data;
+                if(envelope.due_date) {
+                    envelope.due_date = new Date(envelope.due_date * 1000);
+                }
                 vm.envelope = response.data;
             });
         }
@@ -48,6 +52,9 @@
         }
 
         function updateEnvelope(envelope) {
+            if(envelope.due_date) {
+                envelope.due_date = envelope.due_date.getTime() / 1000;
+            }
             return $http.put(ENV.apiEndpoint + 'envelopes/' + envelope.id, envelope).then(function(response) {
                 getEnvelope(envelope.id);
                 vm.modal.hide();

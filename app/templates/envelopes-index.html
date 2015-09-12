@@ -16,7 +16,7 @@
                 <div class="media-body">
                     <div ng-repeat="envelope in vm.envelopes"
                          ng-style="{
-                        'width': envelope.amount / vm.me.amount * 100 + '%'
+                        'width': envelope.daily_amount / vm.me.amount * 100 + '%'
                      }"
                          style="float:left;background-color:blue;color:white;box-sizing: border-box;border:1px solid white">
                         {{ envelope.name }} {{ envelope.amount / vm.me.amount * 100 | number:0 }}%
@@ -32,17 +32,10 @@
                 </div>
                 <div style="overflow:auto">
                     <h3>
-                        {{ envelope.name }}
-                        -
-                        (Tomorrow: ${{ envelope.balance + envelope.amount | number:2 }})
+                        {{ envelope.name }} - ${{ envelope.daily_amount | number:2 }} / day
                     </h3>
-                    <p ng-show="envelope.balance < 0">
-                        Watch out, you've spent to much. Don't worry, it will be paid off in
-                        {{envelope.balance / envelope.amount * -1 | number:0 }} days.
-                    </p>
-                    <p>Transactions {{ envelope.transactions.length }}</p>
                     <p>
-                        Active: {{ envelope.active }}
+                        Pending ${{ envelope.pending_total | number:2 }} {{ envelope.due_date }}
                     </p>
                 </div>
             </ion-item>

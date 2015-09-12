@@ -16,11 +16,7 @@
                     {{ vm.envelope.name }}
                     - ${{ vm.envelope.balance }}
                 </h3>
-                <p>${{ vm.envelope.amount }} / day</p>
-                <p>Transactions {{ vm.envelope.transactions.length }}</p>
-                <p>
-                    Active: {{ vm.envelope.active }}
-                </p>
+                <p>${{ vm.envelope.daily_amount }} / day</p>
             </ion-item>
             <div class="item item-divider">
                 Transactions

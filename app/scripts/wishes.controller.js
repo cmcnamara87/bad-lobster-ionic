@@ -42,10 +42,10 @@
                 // calculate days
                 _.each(vm.wishes, function(wish, index) {
                     if(index === 0) {
-                        wish.days = (wish.amount - vm.spendingEnvelope.balance) / vm.spendingEnvelope.amount;
+                        wish.days = (wish.amount - vm.spendingEnvelope.balance) / vm.spendingEnvelope.daily_amount;
                     } else {
                         var previousDays = vm.wishes[index - 1].days;
-                        wish.days = previousDays + (wish.amount / vm.spendingEnvelope.amount);
+                        wish.days = previousDays + (wish.amount / vm.spendingEnvelope.daily_amount);
                     }
                     var dueDate = new Date();
                     dueDate.setDate(dueDate.getDate() + Math.ceil(wish.days));
@@ -62,11 +62,10 @@
 
         function getSpendingEnvelope() {
             return $http.get(ENV.apiEndpoint + 'envelopes').then(function(response) {
-                var envelopes = response.data;
+                var envelopes = response.data.data;
                 vm.spendingEnvelope = _.find(envelopes, {name: 'Spending'});
             });
         }
-
 
         function showCreateWish() {
             vm.newWish = {};

@@ -43,7 +43,8 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://128.199.104.251/bad-lobster/current/public/api/users/1/'
+            //apiEndpoint: 'http://128.199.104.251/bad-lobster/current/public/api/users/1/'
+            apiEndpoint: 'http://localhost:8888/api/users/1/'
           }
         }
       },
@@ -51,7 +52,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://api.yoursite.com/'
+            apiEndpoint: 'http://128.199.104.251/bad-lobster/current/public/api/users/1/'
           }
         }
       }

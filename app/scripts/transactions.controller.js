@@ -20,20 +20,22 @@
         vm.assignTransactionToEnvelope = assignTransactionToEnvelope;
         vm.cancelAssignTransaction = cancelAssignTransaction;
 
-        activate();
+        $ionicModal.fromTemplateUrl('templates/transactions-assign.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            vm.modal = modal;
+        });
+
+        $scope.$on('$ionicView.enter', function(e) {
+            activate();
+        });
 
         ////////////////
 
         function activate() {
             $http.get(ENV.apiEndpoint + 'transactions').then(function(response) {
                 vm.transactions = response.data;
-            });
-
-            $ionicModal.fromTemplateUrl('templates/transactions-assign.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function(modal) {
-                vm.modal = modal;
             });
         }
 

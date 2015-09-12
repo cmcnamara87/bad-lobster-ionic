@@ -20,8 +20,8 @@
         vm.showCreateEnvelope = showCreateEnvelope;
         vm.createEnvelope = createEnvelope;
         vm.showEnvelope = showEnvelope;
+        vm.hasDueDate = true;
         vm.cancel = cancel;
-        vm.updateNew = updateNew;
 
         $ionicModal.fromTemplateUrl('templates/envelopes-create.html', {
             scope: $scope,
@@ -41,8 +41,6 @@
         function activate() {
             getEnvelopes();
             getMe();
-
-
         }
 
         function getMe() {
@@ -53,7 +51,8 @@
 
         function getEnvelopes() {
             return $http.get(ENV.apiEndpoint + 'envelopes').then(function(response) {
-                vm.envelopes = response.data;
+                vm.envelopes = response.data.data;
+                debugger;
             });
         }
 
@@ -70,6 +69,10 @@
         }
 
         function createEnvelope(envelope) {
+            console.log('here');
+            if(envelope.due_date) {
+                envelope.due_date = envelope.due_date.getTime() / 1000;
+            }
             return $http.post(ENV.apiEndpoint + 'envelopes', envelope).then(function(response) {
                 getEnvelopes();
                 vm.modal.hide();
@@ -104,36 +107,6 @@
         $scope.$on('$destroy', function() {
             vm.modal.remove();
         });
-
-
-        function dueDateChanged(nextDueDate, amount) {
-            var currentDate = new Date();
-            vm.initialInvestment = getDaysBetween(nextDueDate, currentDate) * amount;
-        }
-
-        function getDaysBetween(firstDate, secondDate) {
-            var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-            return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-        }
-
-
-        console.log('this!');
-        function updateNew(meta) {
-            console.log('test');
-            vm.newEnvelope.amount = meta.amount / meta.days;
-            if(!meta.hasDueDate) {
-                vm.newEnvelope.total = 0;
-            } else {
-                if(meta.lastDueDate) {
-                    var nextDueDate = new Date(meta.lastDueDate);
-                    nextDueDate.setDate(nextDueDate.getDate() + parseInt(vm.newMeta.days));
-                    console.log(nextDueDate, vm.newMeta.days);
-                    vm.newEnvelope.total =
-                        Math.max(0, meta.amount - (vm.newEnvelope.amount * getDaysBetween(nextDueDate, new Date())));
-                }
-            }
-        }
-
     }
 
 })();

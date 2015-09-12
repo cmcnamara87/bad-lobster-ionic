@@ -1,10 +1,18 @@
 <ion-modal-view>
     <ion-header-bar>
-        <h1 class="title">Title!</h1>
+        <h1 class="title">New Envelope</h1>
         <button class="button" ng-click="vm.cancel()">Cancel</button>
     </ion-header-bar>
     <ion-content>
         <form ng-submit="vm.createEnvelope(vm.newEnvelope)">
+            <div class="button-bar">
+                <a class="button"
+                   ng-class="{'button-positive': vm.hasDueDate}"
+                   ng-click="vm.hasDueDate = true;">Standard</a>
+                <a class="button"
+                   ng-class="{'button-positive': !vm.hasDueDate}"
+                   ng-click="vm.hasDueDate = false;">Saving</a>
+            </div>
             <div class="list">
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Name</span>
@@ -12,16 +20,14 @@
                 </label>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Amount</span>
-                    <input type="number" placeholder=""
-                           ng-model="vm.newMeta.amount"
-                           ng-change="vm.updateNew(vm.newMeta)">
+                    <input type="tel" placeholder=""
+                           ng-model="vm.newEnvelope.due_amount">
                 </label>
                 <label class="item item-input item-select">
                     <div class="input-label">
                         Every
                     </div>
-                    <select ng-model="vm.newMeta.days"
-                            ng-change="vm.updateNew(vm.newMeta)">
+                    <select ng-model="vm.newEnvelope.period">
                         <option value="1">Day</option>
                         <option value="7">Week</option>
                         <option value="14">2 Weeks</option>
@@ -31,32 +37,22 @@
                     </select>
                 </label>
 
-                <div class="item item-toggle">
-                    Due Date
-                    <label class="toggle toggle-positive">
-                        <input type="checkbox" ng-model="vm.newMeta.hasDueDate"
-                               ng-change="vm.updateNew(vm.newMeta)">
-                        <div class="track">
-                            <div class="handle"></div>
-                        </div>
-                    </label>
-                </div>
+                <!--<div class="item item-toggle">-->
+                    <!--Due Date-->
+                    <!--<label class="toggle toggle-positive">-->
+                        <!--<input type="checkbox" ng-model="vm.hasDueDate">-->
+                        <!--<div class="track">-->
+                            <!--<div class="handle"></div>-->
+                        <!--</div>-->
+                    <!--</label>-->
+                <!--</div>-->
 
-                <label class="item item-input" ng-show="vm.newMeta.hasDueDate">
-                    <span class="input-label">Last Due</span>
+                <label class="item item-input" ng-show="vm.hasDueDate">
+                    <span class="input-label">Next Due Date</span>
                     <input type="date"
-                           ng-model="vm.newMeta.lastDueDate"
-                           ng-change="vm.updateNew(vm.newMeta)">
+                           ng-model="vm.newEnvelope.due_date">
                 </label>
 
-                <div class="item item-text-wrap">
-                    <h3>
-                        ${{ vm.newEnvelope.amount | number:2 }} Daily
-                    <span ng-show="vm.newMeta.hasDueDate">
-                     + ${{ vm.newEnvelope.total | number:2 }} offset.
-                    </span>
-                    </h3>
-                </div>
                 <button type="submit" class="button button-full button-positive item">
                     Create Envelope
                 </button>
