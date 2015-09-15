@@ -43,7 +43,7 @@
             vm.transaction = transaction;
             vm.modal.show();
             $http.get(ENV.apiEndpoint + 'envelopes').then(function(response) {
-                vm.envelopes = response.data;
+                vm.envelopes = response.data.data;
             });
         }
 

@@ -22,6 +22,7 @@
         vm.showEnvelope = showEnvelope;
         vm.hasDueDate = true;
         vm.cancel = cancel;
+        vm.getEnvelopeColor = getEnvelopeColor;
 
         $ionicModal.fromTemplateUrl('templates/envelopes-create.html', {
             scope: $scope,
@@ -52,7 +53,6 @@
         function getEnvelopes() {
             return $http.get(ENV.apiEndpoint + 'envelopes').then(function(response) {
                 vm.envelopes = response.data.data;
-                debugger;
             });
         }
 
@@ -87,6 +87,17 @@
             vm.modal.hide();
         }
 
+        function getEnvelopeColor(envelope) {
+            if(envelope.balance === 0) {
+                return 'grey';
+            }
+            if(envelope.balance > 0) {
+                return 'green';
+            }
+            if(envelope.balance < 0) {
+                return 'red';
+            }
+        }
         $scope.openModal = function() {
 
         };

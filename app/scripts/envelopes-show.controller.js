@@ -10,7 +10,8 @@
                                      $scope,
                                      ENV,
                                      $stateParams,
-                                     $ionicModal) {
+                                     $ionicModal,
+                                     $state) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -18,6 +19,7 @@
         vm.title = 'EnvelopesShow';
         vm.showEditEnvelope = showEditEnvelope;
         vm.updateEnvelope = updateEnvelope;
+        vm.clearBalance = clearBalance;
         vm.cancel = cancel;
 
         activate();
@@ -63,6 +65,14 @@
 
         function cancel() {
             vm.modal.hide();
+        }
+
+        function clearBalance(envelope) {
+            return $http.post(ENV.apiEndpoint + 'transfers', {
+                'envelope_id': envelope.id
+            }).then(function(response) {
+                $state.go('tab.envelopes');
+            });
         }
 
     }

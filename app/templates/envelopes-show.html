@@ -16,14 +16,20 @@
                     {{ vm.envelope.name }}
                     - ${{ vm.envelope.balance }}
                 </h3>
-                <p>${{ vm.envelope.daily_amount }} / day</p>
+                <p>Pending: ${{ vm.envelope.pending_amount | number:2 }}</p>
+                <p>Daily: ${{ vm.envelope.daily_amount | number:2 }} / day</p>
+                <p>Due: {{ vm.envelope.due_date | date:'short'}}</p>
+                <p ng-show="vm.envelope.balance != 0">
+                    <button class="button button-positive item" ng-click="vm.clearBalance(vm.envelope)">
+                        Clear balance
+                    </button>
+                </p>
             </ion-item>
             <div class="item item-divider">
                 Transactions
             </div>
             <ion-item ng-repeat="transaction in vm.envelope.transactions">
-                <h4>
-                    {{ transaction.description }}
+                <h4 ng-bind-html="transaction.description">
                 </h4>
                 <p>
                     ${{ transaction.amount }}

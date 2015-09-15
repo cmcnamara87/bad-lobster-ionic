@@ -5,13 +5,12 @@
                 on-refresh="vm.doRefresh()">
         </ion-refresher>
         <ion-list>
-            <ion-item ng-hide="vm.transactions.length">
+            <ion-item ng-hide="vm.transactions.length" class="item-text-wrap">
                 No new transactions. Pull to refresh to check for more.
             </ion-item>
             <ion-item ng-repeat="transaction in vm.transactions"
                       ng-click="vm.showAssignTransaction(transaction)">
-                <h4>
-                    {{ transaction.description }}
+                <h4 ng-bind-html="transaction.description">
                 </h4>
                 <p>
                     ${{ transaction.amount }}

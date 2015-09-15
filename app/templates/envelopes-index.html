@@ -27,15 +27,25 @@
                       ng-click="vm.showEnvelope(envelope)"
                       class="item-text-wrap">
 
-                <div style="float:left;margin-right:10px;" ng-style="{'color': envelope.balance < 0 && 'red' || 'green' }">
+                <div style="float:left;margin-right:10px;" ng-style="{'color': vm.getEnvelopeColor(envelope) }">
                     ${{ envelope.balance | number:2 }}
                 </div>
                 <div style="overflow:auto">
                     <h3>
-                        {{ envelope.name }} - ${{ envelope.daily_amount | number:2 }} / day
+                        {{ envelope.name }}
+                        <!--- ${{ envelope.daily_amount | number:2 }} / day-->
                     </h3>
-                    <p>
-                        Pending ${{ envelope.pending_total | number:2 }} {{ envelope.due_date }}
+                    <p ng-hide="envelope.due_date">
+                        Saving envelope
+                    </p>
+                    <p ng-show="envelope.due_date">
+                        ${{ envelope.due_amount }} available in <span am-time-ago="envelope.due_date * 1000"></span>
+                        (${{ envelope.daily_amount | number:2 }}/day)
+                    </p>
+                    <p ng-show="envelope.balance < 0">
+                        Watch your spending.
+                        This will be payed off in
+                        {{ envelope.balance / envelope.daily_amount * -1 | number:0 }} days
                     </p>
                 </div>
             </ion-item>
