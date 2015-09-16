@@ -80,6 +80,6 @@ angular.module('banking', ['ionic', 'config', 'angularMoment'])
             });
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tab/dash');
+        $urlRouterProvider.otherwise('/tab/envelopes');
 
     });
