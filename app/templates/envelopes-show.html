@@ -16,7 +16,7 @@
                     {{ vm.envelope.name }}
                     - ${{ vm.envelope.balance }}
                 </h3>
-                <p>Pending: ${{ vm.envelope.pending_amount | number:2 }}</p>
+                <p>Pending: ${{ vm.envelope.pending_total | number:2 }}</p>
                 <p>Daily: ${{ vm.envelope.daily_amount | number:2 }} / day</p>
                 <p>Due: {{ vm.envelope.due_date | date:'short'}}</p>
                 <p ng-show="vm.envelope.balance != 0">

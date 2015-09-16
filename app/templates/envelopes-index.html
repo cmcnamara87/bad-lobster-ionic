@@ -12,6 +12,9 @@
         </ion-refresher>
         <ion-list>
             <ion-item>
+                Synced {{ vm.me.synced_at }}
+            </ion-item>
+            <ion-item>
                 ${{ vm.me.amount }} / day
                 <div class="media-body">
                     <div ng-repeat="envelope in vm.envelopes"
@@ -36,13 +39,14 @@
                         <!--- ${{ envelope.daily_amount | number:2 }} / day-->
                     </h3>
                     <p ng-hide="envelope.due_date">
-                        Saving envelope
-                    </p>
-                    <p ng-show="envelope.due_date">
-                        ${{ envelope.due_amount }} available in <span am-time-ago="envelope.due_date * 1000"></span>
+                        ${{ envelope.daily_amount }} available tomorrow
                         (${{ envelope.daily_amount | number:2 }}/day)
                     </p>
-                    <p ng-show="envelope.balance < 0">
+                    <p ng-show="envelope.due_date">
+                        ${{ envelope.due_amount }} available <span am-time-ago="envelope.due_date * 1000"></span>
+                        (${{ envelope.daily_amount | number:2 }}/day)
+                    </p>
+                    <p ng-show="envelope.balance < 0" style="color: red;">
                         Watch your spending.
                         This will be payed off in
                         {{ envelope.balance / envelope.daily_amount * -1 | number:0 }} days
